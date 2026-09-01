@@ -7,19 +7,23 @@
 package json
 
 import (
+	"encoding/json"
+	"fmt"
 	"io"
-
-	jsoniter "github.com/json-iterator/go"
+	"os"
 )
 
 // Package indicates what library is being used for JSON encoding.
-const Package = "github.com/json-iterator/go"
+const Package = "encoding/json"
 
 func init() {
+	fmt.Fprintln(os.Stderr, `[GIN-WARNING] build tag "jsoniter" is obsolete: `+
+		`github.com/json-iterator/go is archived and its support was removed in gin v1.13.0, `+
+		`encoding/json is used instead. Drop the tag, or plug your own codec into `+
+		`gin/codec/json.API — see docs/doc.md#custom-json-codec-at-runtime`)
+
 	API = jsoniterApi{}
 }
-
-var json = jsoniter.ConfigCompatibleWithStandardLibrary
 
 type jsoniterApi struct{}
 

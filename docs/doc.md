@@ -82,12 +82,6 @@ You can find a number of ready-to-run examples at [Gin examples repository](http
 
 Gin uses `encoding/json` as the default JSON package but you can change it by building from other tags.
 
-[jsoniter](https://github.com/json-iterator/go)
-
-```sh
-go build -tags=jsoniter .
-```
-
 [go-json](https://github.com/goccy/go-json)
 
 ```sh
@@ -99,6 +93,11 @@ go build -tags=go_json .
 ```sh
 go build -tags=sonic .
 ```
+
+The `jsoniter` build tag is obsolete. [json-iterator/go](https://github.com/json-iterator/go)
+was archived upstream, so gin v1.13.0 dropped it: the tag is still accepted, but it
+selects `encoding/json` and prints a warning on start-up. To keep using jsoniter,
+register it yourself — see [Custom json codec at runtime](#custom-json-codec-at-runtime).
 
 ### Build without `MsgPack` rendering feature
 
