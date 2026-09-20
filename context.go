@@ -1382,7 +1382,10 @@ func (c *Context) SSEvent(name string, message any) {
 // indicates "Is client disconnected in middle of stream"
 func (c *Context) Stream(step func(w io.Writer) bool) bool {
 	w := c.Writer
-	clientGone := w.CloseNotify()
+	var clientGone <-chan struct{}
+	if c.Request != nil {
+		clientGone = c.Request.Context().Done()
+	}
 	for {
 		select {
 		case <-clientGone:
